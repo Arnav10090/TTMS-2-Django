@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
+    'ttms.apps.TtmsConfig',
+    'ptms.apps.PtmsConfig',
 ]
 
 MIDDLEWARE = [
@@ -34,6 +36,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.RequestLoggingMiddleware',
+    'core.middleware.AppAvailabilityMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -93,13 +97,90 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100,
+    'DEFAULT_PAGINATION_CLASS': 'core.utils.pagination.StandardPagination',
     'DEFAULT_FILTER_BACKENDS': [
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
 }
+
+AUTHENTICATION_BACKENDS = [
+    'core.auth.backends.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',')
 CORS_ALLOW_CREDENTIALS = True
+
+# ============================================================================
+# APP TOGGLE CONFIGURATION
+# ============================================================================
+# Enable/disable specific apps via environment variables
+ENABLE_TTMS = os.getenv('ENABLE_TTMS', 'True') == 'True'
+ENABLE_PTMS = os.getenv('ENABLE_PTMS', 'True') == 'True'
+
+# TTMS Configuration
+TTMS_CONFIG = {
+    'enabled': ENABLE_TTMS,
+    'name': 'Truck Turnaround Time Monitoring System',
+    'description': 'System for monitoring and managing truck turnaround times',
+    'prefix': 'ttms',
+}
+
+# PTMS Configuration
+PTMS_CONFIG = {
+    'enabled': ENABLE_PTMS,
+    'name': 'Project & Task Management System',
+    'description': 'System for managing projects and tasks',
+    'prefix': 'ptms',
+}
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
+}
