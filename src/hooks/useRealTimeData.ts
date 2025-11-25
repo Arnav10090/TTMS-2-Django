@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { KPIData } from '@/types/kpi'
 import { VehicleRow } from '@/types/vehicle'
 import { ParkingData } from '@/types/dashboard'
-import { dashboardService } from '@/services/dashboardService'
+import { ttmsService } from '@/services/ttms.service'
 
 export function useRealTimeData() {
   const [kpiData, setKpiData] = useState<KPIData>({
@@ -74,15 +74,24 @@ export function useRealTimeData() {
   }
 
   useEffect(() => {
-    Promise.all([
-      dashboardService.getKPIData(),
-      dashboardService.getVehicleRows(),
-      dashboardService.getParking(),
-    ]).then(([kpi, vehicles, parking]) => {
-      setKpiData(kpi)
-      setVehicleData(vehicles)
-      setParkingData(applyOverrides(parking))
-    }).finally(() => setLoading(false))
+    const fetchData = async () => {
+      try {
+        const [kpi, vehicles, parking] = await Promise.all([
+          ttmsService.getKPIMetrics(),
+          ttmsService.getVehicles(25, 0),
+          ttmsService.getParking(),
+        ])
+        setKpiData(kpi)
+        setVehicleData(vehicles)
+        setParkingData(applyOverrides(parking))
+      } catch (error) {
+        console.error('Failed to fetch dashboard data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
 
     const interval = setInterval(() => {
       setKpiData((prev) => {
