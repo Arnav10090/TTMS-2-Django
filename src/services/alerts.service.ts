@@ -22,7 +22,7 @@ export class AlertsService {
       if (params?.limit) queryParams.append('limit', String(params.limit))
       if (params?.offset) queryParams.append('offset', String(params.offset))
 
-      const url = `/alerts/${queryParams.toString() ? '?' + queryParams.toString() : ''}`
+      const url = `/ttms/alerts/${queryParams.toString() ? '?' + queryParams.toString() : ''}`
       const response = await ttmsApi.get<AlertsListResponse>(url)
       return response.results
     } catch (error) {
@@ -37,7 +37,7 @@ export class AlertsService {
 
   async resolveAlert(id: number): Promise<SystemAlert> {
     try {
-      return await ttmsApi.post<SystemAlert>(`/alerts/${id}/resolve/`, {})
+      return await ttmsApi.post<SystemAlert>(`/ttms/alerts/${id}/resolve/`, {})
     } catch (error) {
       console.error('Failed to resolve alert:', error)
       throw error
@@ -46,7 +46,7 @@ export class AlertsService {
 
   async resolveAllAlerts(): Promise<{ resolved_count: number }> {
     try {
-      return await ttmsApi.post<{ resolved_count: number }>('/alerts/resolve_all/', {})
+      return await ttmsApi.post<{ resolved_count: number }>('/ttms/alerts/resolve_all/', {})
     } catch (error) {
       console.error('Failed to resolve all alerts:', error)
       throw error
@@ -59,7 +59,7 @@ export class AlertsService {
     vehicle?: number
   }): Promise<SystemAlert> {
     try {
-      return await ttmsApi.post<SystemAlert>('/alerts/', data)
+      return await ttmsApi.post<SystemAlert>('/ttms/alerts/', data)
     } catch (error) {
       console.error('Failed to create alert:', error)
       throw error
