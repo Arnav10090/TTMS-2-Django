@@ -30,7 +30,7 @@ class AuthService {
 
   async login(email: string, password: string): Promise<LoginResponse> {
     try {
-      const response = await fetch(`${this.apiBase}/auth/login/`, {
+      const response = await fetch(`${this.apiBase}/ttms/auth/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ class AuthService {
 
   async refreshToken(refreshToken: string): Promise<string> {
     try {
-      const response = await fetch(`${this.apiBase}/auth/refresh/`, {
+      const response = await fetch(`${this.apiBase}/ttms/auth/refresh/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ class AuthService {
       const refreshToken = this.getRefreshToken()
 
       if (refreshToken) {
-        await fetch(`${this.apiBase}/auth/logout/`, {
+        await fetch(`${this.apiBase}/ttms/auth/users/logout/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
