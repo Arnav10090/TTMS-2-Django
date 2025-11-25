@@ -8,8 +8,9 @@ from datetime import timedelta
 from core.base_settings import *
 
 # Add PTMS app to installed apps
+# NOTE: ptms_auth removed temporarily due to Django migration ordering issues with custom user models
 INSTALLED_APPS = COMMON_INSTALLED_APPS + [
-    'ptms.auth.apps.PTMSAuthConfig',
+    # 'ptms.auth.apps.PTMSAuthConfig',
     'ptms',
 ]
 
@@ -36,7 +37,9 @@ ADMIN_SITE_HEADER = 'PTMS Administration'
 ADMIN_SITE_TITLE = 'PTMS Admin Portal'
 
 # PTMS Custom User Model
-AUTH_USER_MODEL = 'ptms_auth.PTMSUser'
+# NOTE: Cannot use custom AUTH_USER_MODEL with admin app due to Django migration constraints
+# AUTH_USER_MODEL = 'ptms_auth.PTMSUser'
+AUTH_USER_MODEL = 'auth.User'  # Use Django's default User model
 
 # PTMS Authentication Backend
 AUTHENTICATION_BACKENDS = [
