@@ -16,7 +16,7 @@ export class VehiclesService {
       if (params?.search) queryParams.append('search', params.search)
       if (params?.ordering) queryParams.append('ordering', params.ordering)
 
-      const url = `/vehicles/${queryParams.toString() ? '?' + queryParams.toString() : ''}`
+      const url = `/ttms/vehicles/${queryParams.toString() ? '?' + queryParams.toString() : ''}`
       const response = await ttmsApi.get<VehiclesListResponse>(url)
 
       const results = response.results.map((vehicle) => this.mapVehicleResponse(vehicle))
@@ -30,7 +30,7 @@ export class VehiclesService {
 
   async getVehicleById(id: number): Promise<VehicleRow> {
     try {
-      const response = await ttmsApi.get<VehicleResponse>(`/vehicles/${id}/`)
+      const response = await ttmsApi.get<VehicleResponse>(`/ttms/vehicles/${id}/`)
       return this.mapVehicleResponse(response)
     } catch (error) {
       console.error('Failed to fetch vehicle:', error)
@@ -40,7 +40,7 @@ export class VehiclesService {
 
   async getActiveVehicles(): Promise<VehicleRow[]> {
     try {
-      const response = await ttmsApi.get<VehiclesListResponse>('/vehicles/active/')
+      const response = await ttmsApi.get<VehiclesListResponse>('/ttms/vehicles/active/')
       return response.results.map((vehicle) => this.mapVehicleResponse(vehicle))
     } catch (error) {
       console.error('Failed to fetch active vehicles:', error)
@@ -50,7 +50,7 @@ export class VehiclesService {
 
   async getCompletedVehicles(): Promise<VehicleRow[]> {
     try {
-      const response = await ttmsApi.get<VehiclesListResponse>('/vehicles/completed/')
+      const response = await ttmsApi.get<VehiclesListResponse>('/ttms/vehicles/completed/')
       return response.results.map((vehicle) => this.mapVehicleResponse(vehicle))
     } catch (error) {
       console.error('Failed to fetch completed vehicles:', error)
@@ -65,7 +65,7 @@ export class VehiclesService {
     weight_after_loading: number
   }): Promise<VehicleRow> {
     try {
-      const response = await ttmsApi.post<VehicleResponse>('/vehicles/', data)
+      const response = await ttmsApi.post<VehicleResponse>('/ttms/vehicles/', data)
       return this.mapVehicleResponse(response)
     } catch (error) {
       console.error('Failed to create vehicle:', error)
@@ -82,7 +82,7 @@ export class VehiclesService {
     }
   ): Promise<void> {
     try {
-      await ttmsApi.post(`/vehicles/${vehicleId}/update_stage/`, {
+      await ttmsApi.post(`/ttms/vehicles/${vehicleId}/update_stage/`, {
         stage,
         data,
       })
