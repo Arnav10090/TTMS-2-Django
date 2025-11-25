@@ -9,7 +9,7 @@ from core.base_settings import *
 
 # Add PTMS app to installed apps
 INSTALLED_APPS = COMMON_INSTALLED_APPS + [
-    'ptms.auth',
+    'ptms.auth.apps.PTMSAuthConfig',
     'ptms',
 ]
 
