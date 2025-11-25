@@ -116,5 +116,5 @@ class ApiClient {
 }
 
 export const ttmsApi = new ApiClient(
-  import.meta.env.VITE_API_BASE || 'http://localhost:8000/api'
+  (import.meta.env.VITE_API_BASE || 'http://localhost:8000') + '/api'
 )

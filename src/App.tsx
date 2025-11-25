@@ -6,8 +6,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PTMSLayout from "@/components/layout/PTMSLayout";
 import NotFound from "./ptms/pages/NotFound";
+import { PrivateRoute } from "@/components/auth/PrivateRoute";
 
 // TTMS Routes
+import LoginPage from '@/ttms/pages/login';
 import TTMSDashboardPage from '@/ttms/pages/dashboard';
 import TTMSReportsPage from '@/ttms/pages/reports';
 import TTMSAlarmsPage from '@/ttms/pages/alarms';
@@ -45,27 +47,34 @@ const App = () => {
             {/* Default redirect to TTMS Dashboard */}
             <Route path="/" element={<Navigate to="/ttms/dashboard" replace />} />
 
+            {/* Auth Routes */}
+            <Route path="/login" element={<LoginPage />} />
+
             {/* TTMS Routes */}
             <Route path="/ttms" element={<Navigate to="/ttms/dashboard" replace />} />
-            <Route path="/ttms/dashboard" element={<TTMSDashboardPage />} />
-            <Route path="/ttms/document-verification" element={<TTMSDocumentVerificationPage />} />
-            <Route path="/ttms/scheduling" element={<TTMSSchedulingPage />} />
-            <Route path="/ttms/reports" element={<TTMSReportsPage />} />
-            <Route path="/ttms/alarms" element={<TTMSAlarmsPage />} />
-            <Route path="/ttms/history" element={<TTMSHistoryPage />} />
-            <Route path="/ttms/spare" element={<TTMSSparePage />} />
+            <Route path="/ttms/dashboard" element={<PrivateRoute element={<TTMSDashboardPage />} />} />
+            <Route path="/ttms/document-verification" element={<PrivateRoute element={<TTMSDocumentVerificationPage />} />} />
+            <Route path="/ttms/scheduling" element={<PrivateRoute element={<TTMSSchedulingPage />} />} />
+            <Route path="/ttms/reports" element={<PrivateRoute element={<TTMSReportsPage />} />} />
+            <Route path="/ttms/alarms" element={<PrivateRoute element={<TTMSAlarmsPage />} />} />
+            <Route path="/ttms/history" element={<PrivateRoute element={<TTMSHistoryPage />} />} />
+            <Route path="/ttms/spare" element={<PrivateRoute element={<TTMSSparePage />} />} />
 
             {/* PTMS Routes */}
             <Route path="/ptms" element={<Navigate to="/ptms/hmi-01" replace />} />
             <Route path="/ptms/hmi-01" element={
-              <PTMSLayout>
-                <HMI01Overview />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI01Overview />
+                </PTMSLayout>
+              } />
             } />
             <Route path="/ptms/hmi-01/*" element={
-              <PTMSLayout>
-                <HMI01Tabs />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI01Tabs />
+                </PTMSLayout>
+              } />
             }>
               <Route index element={<Navigate to="tank" replace />} />
               <Route path="tank" element={<HMI01TankSection />} />
@@ -73,29 +82,39 @@ const App = () => {
               <Route path="legends" element={<HMI02LegendsSection />} />
             </Route>
             <Route path="/ptms/pump-operation" element={
-              <PTMSLayout>
-                <HMI03PumpOperation />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI03PumpOperation />
+                </PTMSLayout>
+              } />
             } />
             <Route path="/ptms/trends" element={
-              <PTMSLayout>
-                <HMI04Trends />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI04Trends />
+                </PTMSLayout>
+              } />
             } />
             <Route path="/ptms/alarms" element={
-              <PTMSLayout>
-                <HMI05Alarms />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI05Alarms />
+                </PTMSLayout>
+              } />
             } />
             <Route path="/ptms/reports" element={
-              <PTMSLayout>
-                <HMI06Reports />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI06Reports />
+                </PTMSLayout>
+              } />
             } />
             <Route path="/ptms/historical" element={
-              <PTMSLayout>
-                <HMI07Historical />
-              </PTMSLayout>
+              <PrivateRoute element={
+                <PTMSLayout>
+                  <HMI07Historical />
+                </PTMSLayout>
+              } />
             } />
             <Route path="*" element={<NotFound />} />
           </Routes>
