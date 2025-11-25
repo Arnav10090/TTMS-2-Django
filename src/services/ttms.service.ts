@@ -101,7 +101,7 @@ export interface SparklinePoint {
 export class TTMSService {
   async getKPIMetrics(): Promise<KPIData> {
     try {
-      const response = await ttmsApi.get<{ results: KPIMetricsResponse[] }>('/kpi/')
+      const response = await ttmsApi.get<{ results: KPIMetricsResponse[] }>('/ttms/kpi/')
       const kpi = response.results[0]
 
       if (!kpi) {
@@ -159,7 +159,7 @@ export class TTMSService {
   async getVehicles(limit: number = 25, offset: number = 0): Promise<VehicleRow[]> {
     try {
       const response = await ttmsApi.get<VehiclesListResponse>(
-        `/vehicles/?limit=${limit}&offset=${offset}`
+        `/ttms/vehicles/?limit=${limit}&offset=${offset}`
       )
 
       return response.results.map((vehicle) => {
@@ -201,7 +201,7 @@ export class TTMSService {
 
   async getParking(): Promise<ParkingData> {
     try {
-      const response = await ttmsApi.get<ParkingListResponse>('/parking/')
+      const response = await ttmsApi.get<ParkingListResponse>('/ttms/parking-cells/')
 
       const parkingByArea: Record<string, { status: string; label: string }[][]> = {}
 
@@ -237,7 +237,7 @@ export class TTMSService {
 
   async getAlerts(): Promise<SystemAlert[]> {
     try {
-      const response = await ttmsApi.get<AlertsListResponse>('/alerts/')
+      const response = await ttmsApi.get<AlertsListResponse>('/ttms/alerts/')
       return response.results
     } catch (error) {
       console.error('Failed to fetch alerts:', error)
@@ -248,7 +248,7 @@ export class TTMSService {
   async getSparklineData(): Promise<SparklinePoint[]> {
     try {
       const response = await ttmsApi.get<{ results: { value: number }[] }>(
-        '/sparkline/recent/'
+        '/ttms/sparkline/recent/'
       )
 
       return (response.results || []).map((point) => ({
