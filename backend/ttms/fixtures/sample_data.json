@@ -1,0 +1,1118 @@
+[
+  {
+    "model": "ttms.kpimetrics",
+    "pk": 1,
+    "fields": {
+      "capacity_utilization": 82,
+      "plant_capacity": 120,
+      "trucks_inside": 98,
+      "capacity_trend_direction": "up",
+      "capacity_trend_percentage": 8.5,
+      "turnaround_avg_day": 45,
+      "turnaround_avg_cum": 42,
+      "turnaround_last_year": 52,
+      "turnaround_trend_direction": "down",
+      "turnaround_trend_percentage": -13.5,
+      "turnaround_performance_color": "green",
+      "vehicles_in_day": 38,
+      "vehicles_out_day": 35,
+      "vehicles_in_cum": 285,
+      "vehicles_out_cum": 280,
+      "vehicles_trend_direction": "up",
+      "vehicles_trend_percentage": 5.2,
+      "vehicles_target": 150,
+      "dispatch_today": 35,
+      "dispatch_cum_month": 685,
+      "dispatch_target_day": 120,
+      "dispatch_trend_direction": "up",
+      "dispatch_trend_percentage": 12.3,
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T14:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 1,
+    "fields": {
+      "reg_no": "TN01AB1234",
+      "rfid_no": "RFID001",
+      "tare_weight": 5000,
+      "weight_after_loading": 12500,
+      "progress": 80,
+      "turnaround_time": 42,
+      "timestamp": "2025-01-15T14:30:00Z",
+      "created_at": "2025-01-15T09:45:00Z",
+      "updated_at": "2025-01-15T14:27:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 2,
+    "fields": {
+      "reg_no": "TN02CD5678",
+      "rfid_no": "RFID002",
+      "tare_weight": 4800,
+      "weight_after_loading": 11200,
+      "progress": 100,
+      "turnaround_time": 38,
+      "timestamp": "2025-01-15T13:00:00Z",
+      "created_at": "2025-01-15T08:22:00Z",
+      "updated_at": "2025-01-15T13:00:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 3,
+    "fields": {
+      "reg_no": "TN03EF9012",
+      "rfid_no": "RFID003",
+      "tare_weight": 5100,
+      "weight_after_loading": 13000,
+      "progress": 45,
+      "turnaround_time": 28,
+      "timestamp": "2025-01-15T14:20:00Z",
+      "created_at": "2025-01-15T11:30:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 4,
+    "fields": {
+      "reg_no": "TN04GH3456",
+      "rfid_no": "RFID004",
+      "tare_weight": 4900,
+      "weight_after_loading": 10800,
+      "progress": 60,
+      "turnaround_time": 35,
+      "timestamp": "2025-01-15T14:15:00Z",
+      "created_at": "2025-01-15T10:10:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 5,
+    "fields": {
+      "reg_no": "TN05IJ7890",
+      "rfid_no": "RFID005",
+      "tare_weight": 5200,
+      "weight_after_loading": 12800,
+      "progress": 25,
+      "turnaround_time": 18,
+      "timestamp": "2025-01-15T14:25:00Z",
+      "created_at": "2025-01-15T12:05:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 6,
+    "fields": {
+      "reg_no": "TN06KL2345",
+      "rfid_no": "RFID006",
+      "tare_weight": 4700,
+      "weight_after_loading": 11500,
+      "progress": 55,
+      "turnaround_time": 32,
+      "timestamp": "2025-01-15T14:10:00Z",
+      "created_at": "2025-01-15T10:45:00Z",
+      "updated_at": "2025-01-15T14:10:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 7,
+    "fields": {
+      "reg_no": "TN07MN6789",
+      "rfid_no": "RFID007",
+      "tare_weight": 5050,
+      "weight_after_loading": 12300,
+      "progress": 70,
+      "turnaround_time": 40,
+      "timestamp": "2025-01-15T13:50:00Z",
+      "created_at": "2025-01-15T09:20:00Z",
+      "updated_at": "2025-01-15T13:50:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 8,
+    "fields": {
+      "reg_no": "TN08OP0123",
+      "rfid_no": "RFID008",
+      "tare_weight": 4950,
+      "weight_after_loading": 11900,
+      "progress": 35,
+      "turnaround_time": 24,
+      "timestamp": "2025-01-15T14:05:00Z",
+      "created_at": "2025-01-15T11:50:00Z",
+      "updated_at": "2025-01-15T14:05:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 9,
+    "fields": {
+      "reg_no": "TN09QR4567",
+      "rfid_no": "RFID009",
+      "tare_weight": 5000,
+      "weight_after_loading": 12600,
+      "progress": 90,
+      "turnaround_time": 48,
+      "timestamp": "2025-01-15T13:30:00Z",
+      "created_at": "2025-01-15T07:50:00Z",
+      "updated_at": "2025-01-15T13:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicle",
+    "pk": 10,
+    "fields": {
+      "reg_no": "TN10ST8901",
+      "rfid_no": "RFID010",
+      "tare_weight": 4850,
+      "weight_after_loading": 12100,
+      "progress": 15,
+      "turnaround_time": 12,
+      "timestamp": "2025-01-15T14:28:00Z",
+      "created_at": "2025-01-15T13:15:00Z",
+      "updated_at": "2025-01-15T14:28:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 1,
+    "fields": {
+      "vehicle": 1,
+      "stage": "gateEntry",
+      "state": "completed",
+      "wait_time": 5,
+      "standard_time": 30,
+      "created_at": "2025-01-15T09:45:00Z",
+      "updated_at": "2025-01-15T09:50:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 2,
+    "fields": {
+      "vehicle": 1,
+      "stage": "tareWeighing",
+      "state": "completed",
+      "wait_time": 8,
+      "standard_time": 30,
+      "created_at": "2025-01-15T09:50:00Z",
+      "updated_at": "2025-01-15T09:58:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 3,
+    "fields": {
+      "vehicle": 1,
+      "stage": "loading",
+      "state": "active",
+      "wait_time": 3,
+      "standard_time": 30,
+      "created_at": "2025-01-15T09:58:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 4,
+    "fields": {
+      "vehicle": 1,
+      "stage": "postLoadingWeighing",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:20:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 5,
+    "fields": {
+      "vehicle": 1,
+      "stage": "gateExit",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:20:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 6,
+    "fields": {
+      "vehicle": 2,
+      "stage": "gateEntry",
+      "state": "completed",
+      "wait_time": 4,
+      "standard_time": 30,
+      "created_at": "2025-01-15T08:22:00Z",
+      "updated_at": "2025-01-15T08:26:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 7,
+    "fields": {
+      "vehicle": 2,
+      "stage": "tareWeighing",
+      "state": "completed",
+      "wait_time": 6,
+      "standard_time": 30,
+      "created_at": "2025-01-15T08:26:00Z",
+      "updated_at": "2025-01-15T08:32:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 8,
+    "fields": {
+      "vehicle": 2,
+      "stage": "loading",
+      "state": "completed",
+      "wait_time": 2,
+      "standard_time": 30,
+      "created_at": "2025-01-15T08:32:00Z",
+      "updated_at": "2025-01-15T12:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 9,
+    "fields": {
+      "vehicle": 2,
+      "stage": "postLoadingWeighing",
+      "state": "completed",
+      "wait_time": 5,
+      "standard_time": 30,
+      "created_at": "2025-01-15T12:15:00Z",
+      "updated_at": "2025-01-15T12:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 10,
+    "fields": {
+      "vehicle": 2,
+      "stage": "gateExit",
+      "state": "completed",
+      "wait_time": 3,
+      "standard_time": 30,
+      "created_at": "2025-01-15T12:20:00Z",
+      "updated_at": "2025-01-15T13:00:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 11,
+    "fields": {
+      "vehicle": 3,
+      "stage": "gateEntry",
+      "state": "completed",
+      "wait_time": 3,
+      "standard_time": 30,
+      "created_at": "2025-01-15T11:30:00Z",
+      "updated_at": "2025-01-15T11:33:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 12,
+    "fields": {
+      "vehicle": 3,
+      "stage": "tareWeighing",
+      "state": "completed",
+      "wait_time": 7,
+      "standard_time": 30,
+      "created_at": "2025-01-15T11:33:00Z",
+      "updated_at": "2025-01-15T11:40:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 13,
+    "fields": {
+      "vehicle": 3,
+      "stage": "loading",
+      "state": "active",
+      "wait_time": 4,
+      "standard_time": 30,
+      "created_at": "2025-01-15T11:40:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 14,
+    "fields": {
+      "vehicle": 3,
+      "stage": "postLoadingWeighing",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:20:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 15,
+    "fields": {
+      "vehicle": 3,
+      "stage": "gateExit",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:20:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 16,
+    "fields": {
+      "vehicle": 4,
+      "stage": "gateEntry",
+      "state": "completed",
+      "wait_time": 5,
+      "standard_time": 30,
+      "created_at": "2025-01-15T10:10:00Z",
+      "updated_at": "2025-01-15T10:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 17,
+    "fields": {
+      "vehicle": 4,
+      "stage": "tareWeighing",
+      "state": "completed",
+      "wait_time": 6,
+      "standard_time": 30,
+      "created_at": "2025-01-15T10:15:00Z",
+      "updated_at": "2025-01-15T10:21:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 18,
+    "fields": {
+      "vehicle": 4,
+      "stage": "loading",
+      "state": "active",
+      "wait_time": 3,
+      "standard_time": 30,
+      "created_at": "2025-01-15T10:21:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 19,
+    "fields": {
+      "vehicle": 4,
+      "stage": "postLoadingWeighing",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:15:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 20,
+    "fields": {
+      "vehicle": 4,
+      "stage": "gateExit",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:15:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 21,
+    "fields": {
+      "vehicle": 5,
+      "stage": "gateEntry",
+      "state": "completed",
+      "wait_time": 2,
+      "standard_time": 30,
+      "created_at": "2025-01-15T12:05:00Z",
+      "updated_at": "2025-01-15T12:07:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 22,
+    "fields": {
+      "vehicle": 5,
+      "stage": "tareWeighing",
+      "state": "active",
+      "wait_time": 4,
+      "standard_time": 30,
+      "created_at": "2025-01-15T12:07:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 23,
+    "fields": {
+      "vehicle": 5,
+      "stage": "loading",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:25:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 24,
+    "fields": {
+      "vehicle": 5,
+      "stage": "postLoadingWeighing",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:25:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehiclestage",
+    "pk": 25,
+    "fields": {
+      "vehicle": 5,
+      "stage": "gateExit",
+      "state": "pending",
+      "wait_time": 0,
+      "standard_time": 30,
+      "created_at": "2025-01-15T14:25:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 1,
+    "fields": {
+      "area": "AREA-1",
+      "label": "A1",
+      "status": "occupied",
+      "vehicle": 1,
+      "created_at": "2025-01-15T09:50:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 2,
+    "fields": {
+      "area": "AREA-1",
+      "label": "A2",
+      "status": "occupied",
+      "vehicle": 3,
+      "created_at": "2025-01-15T11:40:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 3,
+    "fields": {
+      "area": "AREA-1",
+      "label": "A3",
+      "status": "available",
+      "vehicle": null,
+      "created_at": "2025-01-15T00:00:00Z",
+      "updated_at": "2025-01-15T14:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 4,
+    "fields": {
+      "area": "AREA-1",
+      "label": "A4",
+      "status": "occupied",
+      "vehicle": 4,
+      "created_at": "2025-01-15T10:21:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 5,
+    "fields": {
+      "area": "AREA-1",
+      "label": "A5",
+      "status": "available",
+      "vehicle": null,
+      "created_at": "2025-01-15T00:00:00Z",
+      "updated_at": "2025-01-15T14:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 6,
+    "fields": {
+      "area": "AREA-2",
+      "label": "B1",
+      "status": "occupied",
+      "vehicle": 6,
+      "created_at": "2025-01-15T10:45:00Z",
+      "updated_at": "2025-01-15T14:10:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 7,
+    "fields": {
+      "area": "AREA-2",
+      "label": "B2",
+      "status": "occupied",
+      "vehicle": 7,
+      "created_at": "2025-01-15T09:20:00Z",
+      "updated_at": "2025-01-15T13:50:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 8,
+    "fields": {
+      "area": "AREA-2",
+      "label": "B3",
+      "status": "occupied",
+      "vehicle": 8,
+      "created_at": "2025-01-15T11:50:00Z",
+      "updated_at": "2025-01-15T14:05:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 9,
+    "fields": {
+      "area": "AREA-2",
+      "label": "B4",
+      "status": "available",
+      "vehicle": null,
+      "created_at": "2025-01-15T00:00:00Z",
+      "updated_at": "2025-01-15T14:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.parkingcell",
+    "pk": 10,
+    "fields": {
+      "area": "AREA-2",
+      "label": "B5",
+      "status": "occupied",
+      "vehicle": 9,
+      "created_at": "2025-01-15T07:50:00Z",
+      "updated_at": "2025-01-15T13:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 1,
+    "fields": {
+      "vehicle": 1,
+      "gate_entry_time": "2025-01-15T09:45:00Z",
+      "area": "AREA-1",
+      "position": "A1",
+      "loading_gate": "Gate-01",
+      "created_at": "2025-01-15T09:45:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 2,
+    "fields": {
+      "vehicle": 2,
+      "gate_entry_time": "2025-01-15T08:22:00Z",
+      "area": "AREA-1",
+      "position": "Loading-01",
+      "loading_gate": "Gate-02",
+      "created_at": "2025-01-15T08:22:00Z",
+      "updated_at": "2025-01-15T13:00:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 3,
+    "fields": {
+      "vehicle": 3,
+      "gate_entry_time": "2025-01-15T11:30:00Z",
+      "area": "AREA-1",
+      "position": "A2",
+      "loading_gate": "Gate-01",
+      "created_at": "2025-01-15T11:30:00Z",
+      "updated_at": "2025-01-15T14:20:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 4,
+    "fields": {
+      "vehicle": 4,
+      "gate_entry_time": "2025-01-15T10:10:00Z",
+      "area": "AREA-1",
+      "position": "A4",
+      "loading_gate": "Gate-02",
+      "created_at": "2025-01-15T10:10:00Z",
+      "updated_at": "2025-01-15T14:15:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 5,
+    "fields": {
+      "vehicle": 5,
+      "gate_entry_time": "2025-01-15T12:05:00Z",
+      "area": "AREA-1",
+      "position": "Inspection-01",
+      "loading_gate": "Gate-01",
+      "created_at": "2025-01-15T12:05:00Z",
+      "updated_at": "2025-01-15T14:25:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 6,
+    "fields": {
+      "vehicle": 6,
+      "gate_entry_time": "2025-01-15T10:45:00Z",
+      "area": "AREA-2",
+      "position": "B1",
+      "loading_gate": "Gate-03",
+      "created_at": "2025-01-15T10:45:00Z",
+      "updated_at": "2025-01-15T14:10:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 7,
+    "fields": {
+      "vehicle": 7,
+      "gate_entry_time": "2025-01-15T09:20:00Z",
+      "area": "AREA-2",
+      "position": "B2",
+      "loading_gate": "Gate-03",
+      "created_at": "2025-01-15T09:20:00Z",
+      "updated_at": "2025-01-15T13:50:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 8,
+    "fields": {
+      "vehicle": 8,
+      "gate_entry_time": "2025-01-15T11:50:00Z",
+      "area": "AREA-2",
+      "position": "B3",
+      "loading_gate": "Gate-04",
+      "created_at": "2025-01-15T11:50:00Z",
+      "updated_at": "2025-01-15T14:05:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 9,
+    "fields": {
+      "vehicle": 9,
+      "gate_entry_time": "2025-01-15T07:50:00Z",
+      "area": "AREA-2",
+      "position": "B5",
+      "loading_gate": "Gate-04",
+      "created_at": "2025-01-15T07:50:00Z",
+      "updated_at": "2025-01-15T13:30:00Z"
+    }
+  },
+  {
+    "model": "ttms.vehicleentry",
+    "pk": 10,
+    "fields": {
+      "vehicle": 10,
+      "gate_entry_time": "2025-01-15T13:15:00Z",
+      "area": "AREA-1",
+      "position": "Entry-Queue",
+      "loading_gate": "Gate-01",
+      "created_at": "2025-01-15T13:15:00Z",
+      "updated_at": "2025-01-15T14:28:00Z"
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 1,
+    "fields": {
+      "level": "critical",
+      "message": "Vehicle TN01AB1234 delayed at loading stage - exceeds standard time by 15 minutes",
+      "vehicle": 1,
+      "is_resolved": false,
+      "created_at": "2025-01-15T14:10:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 2,
+    "fields": {
+      "level": "warning",
+      "message": "Parking area AREA-2 is at 80% capacity",
+      "vehicle": null,
+      "is_resolved": false,
+      "created_at": "2025-01-15T14:15:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 3,
+    "fields": {
+      "level": "info",
+      "message": "Vehicle TN02CD5678 completed turnaround in 38 minutes - below average",
+      "vehicle": 2,
+      "is_resolved": true,
+      "created_at": "2025-01-15T13:00:00Z",
+      "resolved_at": "2025-01-15T13:05:00Z"
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 4,
+    "fields": {
+      "level": "warning",
+      "message": "Gate-02 experiencing higher than usual wait times",
+      "vehicle": null,
+      "is_resolved": false,
+      "created_at": "2025-01-15T13:45:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 5,
+    "fields": {
+      "level": "critical",
+      "message": "Overall facility capacity at 82% - approaching maximum",
+      "vehicle": null,
+      "is_resolved": false,
+      "created_at": "2025-01-15T14:20:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 6,
+    "fields": {
+      "level": "info",
+      "message": "Daily vehicle throughput target 80% achieved (96 of 120 vehicles)",
+      "vehicle": null,
+      "is_resolved": true,
+      "created_at": "2025-01-15T12:00:00Z",
+      "resolved_at": "2025-01-15T12:05:00Z"
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 7,
+    "fields": {
+      "level": "warning",
+      "message": "Vehicle TN03EF9012 at inspection stage - awaiting verification",
+      "vehicle": 3,
+      "is_resolved": false,
+      "created_at": "2025-01-15T14:18:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 8,
+    "fields": {
+      "level": "critical",
+      "message": "Multiple vehicles waiting in queue - entry gate bottleneck detected",
+      "vehicle": null,
+      "is_resolved": false,
+      "created_at": "2025-01-15T14:00:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 9,
+    "fields": {
+      "level": "info",
+      "message": "System backup completed successfully",
+      "vehicle": null,
+      "is_resolved": true,
+      "created_at": "2025-01-14T23:30:00Z",
+      "resolved_at": "2025-01-15T00:00:00Z"
+    }
+  },
+  {
+    "model": "ttms.systemalert",
+    "pk": 10,
+    "fields": {
+      "level": "warning",
+      "message": "Average turnaround time trending upward - 5% increase from yesterday",
+      "vehicle": null,
+      "is_resolved": false,
+      "created_at": "2025-01-15T08:00:00Z",
+      "resolved_at": null
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 1,
+    "fields": {
+      "timestamp": "2024-12-17T00:00:00Z",
+      "value": 55
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 2,
+    "fields": {
+      "timestamp": "2024-12-18T00:00:00Z",
+      "value": 52
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 3,
+    "fields": {
+      "timestamp": "2024-12-19T00:00:00Z",
+      "value": 48
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 4,
+    "fields": {
+      "timestamp": "2024-12-20T00:00:00Z",
+      "value": 50
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 5,
+    "fields": {
+      "timestamp": "2024-12-21T00:00:00Z",
+      "value": 46
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 6,
+    "fields": {
+      "timestamp": "2024-12-22T00:00:00Z",
+      "value": 44
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 7,
+    "fields": {
+      "timestamp": "2024-12-23T00:00:00Z",
+      "value": 49
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 8,
+    "fields": {
+      "timestamp": "2024-12-24T00:00:00Z",
+      "value": 47
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 9,
+    "fields": {
+      "timestamp": "2024-12-25T00:00:00Z",
+      "value": 51
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 10,
+    "fields": {
+      "timestamp": "2024-12-26T00:00:00Z",
+      "value": 45
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 11,
+    "fields": {
+      "timestamp": "2024-12-27T00:00:00Z",
+      "value": 43
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 12,
+    "fields": {
+      "timestamp": "2024-12-28T00:00:00Z",
+      "value": 41
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 13,
+    "fields": {
+      "timestamp": "2024-12-29T00:00:00Z",
+      "value": 40
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 14,
+    "fields": {
+      "timestamp": "2024-12-30T00:00:00Z",
+      "value": 42
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 15,
+    "fields": {
+      "timestamp": "2025-01-01T00:00:00Z",
+      "value": 38
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 16,
+    "fields": {
+      "timestamp": "2025-01-02T00:00:00Z",
+      "value": 39
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 17,
+    "fields": {
+      "timestamp": "2025-01-03T00:00:00Z",
+      "value": 37
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 18,
+    "fields": {
+      "timestamp": "2025-01-04T00:00:00Z",
+      "value": 35
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 19,
+    "fields": {
+      "timestamp": "2025-01-05T00:00:00Z",
+      "value": 36
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 20,
+    "fields": {
+      "timestamp": "2025-01-06T00:00:00Z",
+      "value": 34
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 21,
+    "fields": {
+      "timestamp": "2025-01-07T00:00:00Z",
+      "value": 33
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 22,
+    "fields": {
+      "timestamp": "2025-01-08T00:00:00Z",
+      "value": 32
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 23,
+    "fields": {
+      "timestamp": "2025-01-09T00:00:00Z",
+      "value": 31
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 24,
+    "fields": {
+      "timestamp": "2025-01-10T00:00:00Z",
+      "value": 30
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 25,
+    "fields": {
+      "timestamp": "2025-01-11T00:00:00Z",
+      "value": 29
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 26,
+    "fields": {
+      "timestamp": "2025-01-12T00:00:00Z",
+      "value": 28
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 27,
+    "fields": {
+      "timestamp": "2025-01-13T00:00:00Z",
+      "value": 27
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 28,
+    "fields": {
+      "timestamp": "2025-01-14T00:00:00Z",
+      "value": 26
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 29,
+    "fields": {
+      "timestamp": "2025-01-15T00:00:00Z",
+      "value": 25
+    }
+  },
+  {
+    "model": "ttms.turnaroundtimesparkline",
+    "pk": 30,
+    "fields": {
+      "timestamp": "2025-01-15T12:00:00Z",
+      "value": 42
+    }
+  }
+]
