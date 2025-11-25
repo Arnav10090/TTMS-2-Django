@@ -282,6 +282,304 @@ The current build has a large chunk size (~1MB). Consider implementing code-spli
 - React 18+ compatible
 - Chrome, Firefox, Safari, Edge (latest versions)
 
+---
+
+# Backend Documentation
+
+## Backend Tech Stack
+
+The backend consists of two independent Django applications:
+
+- **TTMS (Truck Turnaround Time Monitoring System)**: REST API for vehicle turnaround time management
+- **PTMS (Project Task Management System)**: REST API for project and task management
+
+### Technology Stack
+- **Framework**: Django 4.2 with Django REST Framework
+- **Database**: PostgreSQL 15
+- **Authentication**: JWT (JSON Web Tokens) with SimpleJWT
+- **API**: RESTful API with custom permissions
+- **Server**: Gunicorn with Nginx (production)
+- **Containerization**: Docker & Docker Compose
+
+## Backend Structure
+
+```
+backend/
+├── core/                          # Django core configuration
+│   ├── base_settings.py          # Common settings (both apps)
+│   ├── settings_ttms.py          # TTMS-specific settings
+│   ├── settings_ptms.py          # PTMS-specific settings
+│   ├── urls_ttms.py              # TTMS URL configuration
+│   ├── urls_ptms.py              # PTMS URL configuration
+│   └── ...
+├── ttms/                          # TTMS Application
+│   ├── auth/                      # TTMS Authentication
+│   │   ├── models.py             # Custom TTMSUser model
+│   │   ├── serializers.py        # JWT token serializers
+│   │   ├── backends.py           # Authentication backend
+│   │   ├── permissions.py        # Role-based permissions
+│   │   ├── views.py              # Auth endpoints
+│   │   └── admin.py              # Django admin interface
+│   ├── models.py                 # TTMS data models
+│   ├── serializers.py            # Data serializers
+│   ├── views.py                  # API viewsets
+│   └── urls.py                   # TTMS app URLs
+├── ptms/                          # PTMS Application
+│   ├── auth/                      # PTMS Authentication
+│   │   └── (similar structure)
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   └── urls.py
+├── common/                        # Shared utilities
+│   ├── utils.py                  # Helper functions
+│   ├── pagination.py             # Pagination classes
+│   ├── responses.py              # Response formatting
+│   ├── validators.py             # Validation functions
+│   └── constants.py              # Constants and enums
+├── Docker/                        # Docker configuration
+│   ├── Dockerfile.ttms           # TTMS container
+│   ├── Dockerfile.ptms           # PTMS container
+│   ├── docker-compose.yml        # Development environment
+│   ├── docker-compose.prod.yml   # Production environment
+│   ├── entrypoint.ttms.sh        # TTMS startup script
+│   ├── entrypoint.ptms.sh        # PTMS startup script
+│   └── init-databases.sh         # Database initialization
+├── requirements.txt              # Python dependencies
+├── .env.example                  # Environment template
+└── manage.py                     # Django management
+```
+
+## Getting Started with Backend
+
+### Prerequisites
+
+- Docker 20.10+
+- Docker Compose 2.0+
+- (Or Python 3.11+, PostgreSQL 15+ for local development)
+
+### Docker Setup (Recommended)
+
+```bash
+cd backend
+
+# 1. Copy environment file
+cp .env.example .env
+
+# 2. Start services
+docker-compose -f Docker/docker-compose.yml up -d
+
+# 3. Services are ready:
+# TTMS: http://localhost:8000
+# PTMS: http://localhost:8001
+# TTMS DB: localhost:5432
+# PTMS DB: localhost:5433
+```
+
+### Local Development Setup
+
+```bash
+cd backend
+
+# 1. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Setup TTMS database
+export DJANGO_SETTINGS_MODULE=core.settings_ttms
+python manage.py migrate
+python manage.py createsuperuser
+
+# 4. Run TTMS server
+python manage.py runserver
+
+# 5. In a new terminal, setup PTMS
+export DJANGO_SETTINGS_MODULE=core.settings_ptms
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver 0.0.0.0:8001
+```
+
+## API Authentication
+
+Both applications use JWT (JSON Web Tokens) for authentication.
+
+### Login to TTMS
+
+```bash
+curl -X POST http://localhost:8000/api/ttms/auth/login/ \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@ttms.local","password":"admin123"}'
+
+# Response:
+# {
+#   "access": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+#   "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+# }
+```
+
+### Use Access Token
+
+```bash
+curl http://localhost:8000/api/ttms/auth/users/me/ \
+  -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc..."
+```
+
+### Refresh Token
+
+```bash
+curl -X POST http://localhost:8000/api/ttms/auth/refresh/ \
+  -H "Content-Type: application/json" \
+  -d '{"refresh":"eyJ0eXAiOiJKV1QiLCJhbGc..."}'
+```
+
+## API Endpoints
+
+### TTMS Endpoints
+
+**Authentication:**
+- `POST /api/ttms/auth/login/` - Get JWT tokens
+- `POST /api/ttms/auth/refresh/` - Refresh access token
+- `POST /api/ttms/auth/verify/` - Verify token
+- `GET /api/ttms/auth/users/me/` - Get current user
+- `POST /api/ttms/auth/users/me/update/` - Update profile
+- `POST /api/ttms/auth/users/me/change-password/` - Change password
+
+**Data:**
+- `GET/POST /api/ttms/kpi/` - KPI metrics
+- `GET/POST /api/ttms/vehicles/` - Vehicle management
+- `GET/POST /api/ttms/vehicle-stages/` - Vehicle stages
+- `GET/POST /api/ttms/parking-cells/` - Parking management
+- `GET/POST /api/ttms/alerts/` - System alerts
+
+### PTMS Endpoints
+
+**Authentication:** (Same structure as TTMS, prefixed with `/api/ptms/auth/`)
+**Data:**
+- `GET/POST /api/ptms/projects/` - Project management
+- `GET/POST /api/ptms/tasks/` - Task management
+
+## Database
+
+Both applications use PostgreSQL 15 with completely separate databases:
+
+- **TTMS Database**: `ttms_db`
+- **PTMS Database**: `ptms_db`
+
+### Creating Backups
+
+```bash
+# TTMS
+docker-compose exec ttms_postgres pg_dump -U postgres ttms_db > ttms_backup.sql
+
+# PTMS
+docker-compose exec ptms_postgres pg_dump -U postgres ptms_db > ptms_backup.sql
+```
+
+## Deployment
+
+For detailed Docker and production deployment instructions, see [DOCKER_SETUP.md](backend/DOCKER_SETUP.md)
+
+### Production Checklist
+
+- [ ] Set `DEBUG=False` in environment
+- [ ] Generate strong `SECRET_KEY`
+- [ ] Configure `ALLOWED_HOSTS`
+- [ ] Set up database backups
+- [ ] Enable HTTPS/SSL
+- [ ] Configure email backend
+- [ ] Set up log monitoring
+- [ ] Enable rate limiting
+- [ ] Set strong database passwords
+
+## Development Workflow
+
+### Running Tests
+
+```bash
+# TTMS tests
+docker-compose exec ttms python manage.py test --settings=core.settings_ttms
+
+# PTMS tests
+docker-compose exec ptms python manage.py test --settings=core.settings_ptms
+```
+
+### Creating Migrations
+
+```bash
+# TTMS
+docker-compose exec ttms python manage.py makemigrations --settings=core.settings_ttms
+
+# PTMS
+docker-compose exec ptms python manage.py makemigrations --settings=core.settings_ptms
+```
+
+### Admin Interfaces
+
+- **TTMS Admin**: http://localhost:8000/admin/
+- **PTMS Admin**: http://localhost:8001/admin/
+
+## Architecture Highlights
+
+### Independent Applications
+- TTMS and PTMS run in separate containers
+- Each has its own PostgreSQL database
+- Completely independent authentication systems
+- Can be deployed separately
+
+### Role-Based Access Control (RBAC)
+
+**TTMS Roles:**
+- Operator, Supervisor, Manager, Admin, Viewer
+
+**PTMS Roles:**
+- Team Member, Team Lead, Project Manager, Admin, Viewer
+
+### Security Features
+- Password hashing with Django's built-in system
+- JWT token expiration and refresh
+- Token blacklisting for logout
+- CSRF protection
+- SQL injection prevention
+- Email-based authentication
+
+## Performance Considerations
+
+- Database query optimization with indexes
+- Connection pooling for database
+- Caching layer support (Redis-ready)
+- Pagination for large datasets
+- Efficient serialization
+
+## Troubleshooting Backend
+
+```bash
+# View logs
+docker-compose logs -f ttms
+docker-compose logs -f ptms
+
+# Access database shell
+docker-compose exec ttms_postgres psql -U postgres -d ttms_db
+
+# Restart services
+docker-compose restart ttms ptms
+
+# See detailed error messages
+docker-compose logs --tail=50 ttms
+```
+
+## Support & Documentation
+
+- [Backend API Reference](backend/API_REFERENCE.md)
+- [Database Schema](backend/DATABASE_SCHEMA.md)
+- [Docker Setup Guide](backend/DOCKER_SETUP.md)
+- [Phase Implementation Summaries](backend/)
+
+---
+
 ## License
 
 Proprietary - Truck Turnaround Time Monitoring System
