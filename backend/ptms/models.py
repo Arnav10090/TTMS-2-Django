@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Project(models.Model):
@@ -14,7 +14,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='projects_created')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='projects_created')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -46,7 +46,7 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='medium')
-    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_tasks')
+    assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_tasks')
     due_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
