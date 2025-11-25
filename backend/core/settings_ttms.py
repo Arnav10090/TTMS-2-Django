@@ -14,13 +14,16 @@ INSTALLED_APPS = COMMON_INSTALLED_APPS + [
 ]
 
 # TTMS-specific database configuration
+# Use environment variables to switch between Docker and local PostgreSQL
+# Docker defaults: DB_HOST=ttms_postgres, DB_NAME=ttms_db
+# Local defaults: DB_HOST=localhost, DB_NAME=ttms_local
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('DB_NAME', 'ttms_db'),
+        'NAME': os.getenv('DB_NAME', 'ttms_local'),
         'USER': os.getenv('DB_USER', 'postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
-        'HOST': os.getenv('DB_HOST', 'ttms_postgres'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
