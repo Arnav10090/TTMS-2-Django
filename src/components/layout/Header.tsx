@@ -1,13 +1,15 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { authService } from '@/services/auth.service'
 import { format } from 'date-fns'
 
 export default function Header() {
   const [now, setNow] = useState<Date | null>(null)
   const [mounted, setMounted] = useState(false)
   const { pathname } = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     setMounted(true)
@@ -31,6 +33,18 @@ export default function Header() {
           {title}
         </h1>
         <div className="flex items-center gap-3">
+          <button
+            onClick={async () => {
+              try {
+                await authService.logout()
+              } finally {
+                navigate('/login', { replace: true })
+              }
+            }}
+            className="px-3 py-1.5 rounded-full bg-red-500 text-white hover:bg-red-600 transition-colors"
+          >
+            Logout
+          </button>
           <div className="text-slate-600 text-lg hidden md:block font-bold" suppressHydrationWarning>
             {mounted && now ? format(now, 'EEE, dd MMM yyyy HH:mm:ss') : ''}
           </div>

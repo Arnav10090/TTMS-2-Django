@@ -148,6 +148,13 @@ class VehicleStage(models.Model):
         default=30,
         help_text="Standard time for this stage in minutes"
     )
+    # Added timing fields for reports
+    started_at = models.DateTimeField(null=True, blank=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+    time_taken = models.IntegerField(
+        default=0,
+        help_text="Actual time taken for this stage in minutes"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -157,6 +164,34 @@ class VehicleStage(models.Model):
     
     def __str__(self):
         return f"{self.vehicle.reg_no} - {self.get_stage_display()}"
+
+
+class LoadingGate(models.Model):
+    """Represents a loading gate with status for scheduling/allocation"""
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('occupied', 'Occupied'),
+        ('maintenance', 'Maintenance'),
+    ]
+
+    name = models.CharField(max_length=50, unique=True)
+    area = models.CharField(max_length=20, default='AREA-1')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
+    current_entry = models.ForeignKey(
+        'VehicleEntry',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='assigned_gate'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['area', 'name']
+
+    def __str__(self):
+        return f"{self.name} ({self.area}) - {self.status}"
 
 
 class ParkingCell(models.Model):

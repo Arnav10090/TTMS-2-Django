@@ -61,7 +61,9 @@ SIMPLE_JWT = {
 }
 
 # REST Framework Configuration for TTMS
+# Start from base REST_FRAMEWORK (which includes pagination and filters)
 REST_FRAMEWORK = {
+    **REST_FRAMEWORK,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],

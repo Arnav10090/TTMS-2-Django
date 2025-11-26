@@ -54,7 +54,7 @@ export default function TTMSSchedulingPage() {
                 const key = 'loadingGateStatuses'
                 const raw = localStorage.getItem(key)
                 const gates = raw ? JSON.parse(raw) as {id:string; status:'available'|'occupied'|'reserved'}[] : Array.from({length:12},(_,i)=>({id:`G-${i+1}`,status:'available' as const}))
-                const next = gates.map(g=> g.id===row.loadingGate ? {...g, status:'occupied' as const} : g)
+                const next = gates.map(g=> g.id===row.loadingGate ? {...g, status:'reserved' as const} : g)
                 localStorage.setItem(key, JSON.stringify(next))
                 window.dispatchEvent(new Event('loadingGateStatuses-updated'))
               } catch {}

@@ -5,14 +5,14 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Q
 from .models import (
     KPIMetrics, Vehicle, VehicleStage, ParkingCell,
-    VehicleEntry, SystemAlert, TurnaroundTimeSparkline
+    VehicleEntry, SystemAlert, TurnaroundTimeSparkline, LoadingGate
 )
 from .serializers import (
     KPIMetricsSerializer, KPIMetricsDetailSerializer,
     VehicleSerializer, VehicleCreateUpdateSerializer,
     VehicleStageSerializer, ParkingCellSerializer,
     VehicleEntrySerializer, SystemAlertSerializer,
-    TurnaroundTimeSparklineSerializer
+    TurnaroundTimeSparklineSerializer, LoadingGateSerializer
 )
 
 
@@ -250,6 +250,58 @@ class SystemAlertViewSet(viewsets.ModelViewSet):
             resolved_at=timezone.now()
         )
         return Response({'resolved_count': updated})
+
+
+class LoadingGateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for loading gates used on Scheduling page
+    - List gates with current status
+    - Assign a gate to a vehicle entry
+    - Release a gate
+    """
+    queryset = LoadingGate.objects.select_related('current_entry__vehicle').all()
+    serializer_class = LoadingGateSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['name', 'area', 'status', 'current_entry__vehicle__reg_no']
+    ordering_fields = ['name', 'area', 'status', 'updated_at']
+    ordering = ['area', 'name']
+
+    @action(detail=False, methods=['get'])
+    def status(self, request):
+        """Get summarized status counts for gates"""
+        data = list(
+            LoadingGate.objects.values('area', 'status')
+            .order_by('area', 'status')
+        )
+        return Response(data)
+
+    @action(detail=True, methods=['post'])
+    def assign(self, request, pk=None):
+        """Assign this gate to a vehicle entry"""
+        gate = self.get_object()
+        entry_id = request.data.get('entry_id')
+        if not entry_id:
+            return Response({'error': 'entry_id required'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            entry = VehicleEntry.objects.select_related('vehicle').get(id=entry_id)
+        except VehicleEntry.DoesNotExist:
+            return Response({'error': 'VehicleEntry not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        gate.current_entry = entry
+        gate.status = 'occupied'
+        gate.save()
+        entry.loading_gate = gate.name
+        entry.save(update_fields=['loading_gate'])
+        return Response(LoadingGateSerializer(gate).data)
+
+    @action(detail=True, methods=['post'])
+    def release(self, request, pk=None):
+        """Release this gate from its current assignment"""
+        gate = self.get_object()
+        gate.current_entry = None
+        gate.status = 'available'
+        gate.save()
+        return Response(LoadingGateSerializer(gate).data)
 
 
 class TurnaroundTimeSparklineViewSet(viewsets.ModelViewSet):

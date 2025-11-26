@@ -79,7 +79,8 @@ class TTMSTokenObtainPairSerializer(JWTTokenObtainPairSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'] = serializers.EmailField()
-        del self.fields['username']
+        if 'username' in self.fields:
+            del self.fields['username']
     
     @classmethod
     def get_token(cls, user):

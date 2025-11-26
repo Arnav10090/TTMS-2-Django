@@ -27,7 +27,7 @@
    ```
 
 5. Access the API:
-   - API Base: `http://localhost:8000/api/`
+   - API Base: `http://localhost:8000/api/ttms/`
    - Admin: `http://localhost:8000/admin/`
 
 ## Option 2: Local Setup (Manual)
@@ -96,12 +96,12 @@
    ```
 
 10. Access the application:
-    - API Base: `http://localhost:8000/api/`
+    - API Base: `http://localhost:8000/api/ttms/`
     - Admin: `http://localhost:8000/admin/`
 
 ## Connecting Frontend to Backend
 
-Update your frontend API base URL to `http://localhost:8000/api/`
+Update your frontend API base URL to `http://localhost:8000/api/ttms/`
 
 If you're using the frontend at `http://localhost:5173`, the CORS settings in `.env` should already include it:
 ```
@@ -119,7 +119,7 @@ python manage.py shell
 Then execute:
 
 ```python
-from api.models import KPIMetrics, Vehicle, VehicleStage
+from ttms.models import KPIMetrics, Vehicle, VehicleStage
 from datetime import datetime
 
 # Create KPI metrics
@@ -175,41 +175,50 @@ print("Sample data created successfully!")
 
 ## API Endpoints Quick Reference
 
+### Auth (JWT)
+```
+POST   /api/ttms/auth/login/
+POST   /api/ttms/auth/refresh/
+POST   /api/ttms/auth/verify/
+```
+
 ### KPI
 ```
-GET    /api/kpi/
-GET    /api/kpi/latest/
-POST   /api/kpi/
+GET    /api/ttms/kpi/
+GET    /api/ttms/kpi/latest/
+POST   /api/ttms/kpi/
+POST   /api/ttms/kpi/create_or_update/
 ```
 
 ### Vehicles
 ```
-GET    /api/vehicles/
-GET    /api/vehicles/active/
-GET    /api/vehicles/completed/
-POST   /api/vehicles/
+GET    /api/ttms/vehicles/
+GET    /api/ttms/vehicles/active/
+GET    /api/ttms/vehicles/completed/
+POST   /api/ttms/vehicles/
 ```
 
 ### Parking
 ```
-GET    /api/parking/
-GET    /api/parking/by_area/?area=AREA-1
-GET    /api/parking/available/
-POST   /api/parking/{id}/allocate/
+GET    /api/ttms/parking-cells/
+GET    /api/ttms/parking-cells/by_area/?area=AREA-1
+GET    /api/ttms/parking-cells/available/
+POST   /api/ttms/parking-cells/{id}/allocate/
 ```
 
-### Entries
+### Vehicle Entries
 ```
-GET    /api/entries/
-GET    /api/entries/today/
-POST   /api/entries/
+GET    /api/ttms/vehicle-entries/
+GET    /api/ttms/vehicle-entries/today/
+POST   /api/ttms/vehicle-entries/
 ```
 
 ### Alerts
 ```
-GET    /api/alerts/
-GET    /api/alerts/active/
-POST   /api/alerts/{id}/resolve/
+GET    /api/ttms/alerts/
+GET    /api/ttms/alerts/active/
+POST   /api/ttms/alerts/{id}/resolve/
+POST   /api/ttms/alerts/resolve_all/
 ```
 
 ## Troubleshooting

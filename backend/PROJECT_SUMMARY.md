@@ -16,11 +16,11 @@ A complete Django REST Framework backend for the TTR (Turnaround Time) Dashboard
 6. **.env.example** - Environment variables template
 7. **.gitignore** - Git ignore patterns
 
-### API Application
+### TTMS Application
 
-**Location:** `backend/api/`
+**Location:** `backend/ttms/`
 
-#### Models (api/models.py)
+#### Models (ttms/models.py)
 - **KPIMetrics** - KPI data storage (capacity, turnaround, vehicles, dispatch)
 - **Vehicle** - Vehicle information with weight and progress tracking
 - **VehicleStage** - Processing stages for vehicles (Gate Entry, Tare Weighing, Loading, etc.)
@@ -29,12 +29,12 @@ A complete Django REST Framework backend for the TTR (Turnaround Time) Dashboard
 - **SystemAlert** - Alert management system
 - **TurnaroundTimeSparkline** - Historical metrics for charts
 
-#### Serializers (api/serializers.py)
+#### Serializers (ttms/serializers.py)
 - Serializers for all models
 - Custom KPI formatter for frontend compatibility
 - Nested serializer for vehicle stages
 
-#### Views (api/views.py)
+#### Views (ttms/views.py)
 - RESTful viewsets for all models
 - Custom actions:
   - `GET /kpi/latest/` - Formatted KPI data
@@ -48,7 +48,7 @@ A complete Django REST Framework backend for the TTR (Turnaround Time) Dashboard
   - `POST /alerts/{id}/resolve/` - Resolve alert
   - `GET /sparkline/recent/` - Recent sparkline data
 
-#### Admin Interface (api/admin.py)
+#### Admin Interface (ttms/admin.py)
 - Fully configured Django admin with:
   - List displays
   - Search fields
@@ -56,9 +56,9 @@ A complete Django REST Framework backend for the TTR (Turnaround Time) Dashboard
   - Read-only fields
   - Organized fieldsets
 
-#### URL Configuration (api/urls.py)
-- REST router with all endpoints
-- Base URL: `/api/`
+#### URL Configuration
+- TTMS routes registered under core router
+- Base URL: `/api/ttms/`
 
 #### App Configuration (api/apps.py)
 - App label and verbose name
@@ -89,12 +89,12 @@ backend/
 │   ├── urls.py               # URL routing
 │   └── wsgi.py               # WSGI application
 │
-├── api/                       # Main API application
+├── ttms/                      # TTMS application (primary)
 │   ├── __init__.py
 │   ├── models.py             # Database models
 │   ├── views.py              # API views
 │   ├── serializers.py        # DRF serializers
-│   ├── urls.py               # API URL routing
+│   ├── urls.py               # App URL routing (if used)
 │   ├── admin.py              # Admin configuration
 │   └── apps.py               # App configuration
 │
@@ -165,58 +165,58 @@ backend/
 
 ### KPI Metrics
 ```
-GET    /api/kpi/                          # List all
-GET    /api/kpi/latest/                   # Get formatted latest
-POST   /api/kpi/create_or_update/         # Create or update
+GET    /api/ttms/kpi/                          # List all
+GET    /api/ttms/kpi/latest/                   # Get formatted latest
+POST   /api/ttms/kpi/create_or_update/         # Create or update
 ```
 
 ### Vehicles
 ```
-GET    /api/vehicles/                     # List with search/filter
-GET    /api/vehicles/{id}/                # Get single
-GET    /api/vehicles/active/              # Active vehicles
-GET    /api/vehicles/completed/           # Completed vehicles
-POST   /api/vehicles/                     # Create
-PATCH  /api/vehicles/{id}/                # Update
-POST   /api/vehicles/{id}/update_stage/   # Update stage
+GET    /api/ttms/vehicles/                     # List with search/filter
+GET    /api/ttms/vehicles/{id}/                # Get single
+GET    /api/ttms/vehicles/active/              # Active vehicles
+GET    /api/ttms/vehicles/completed/           # Completed vehicles
+POST   /api/ttms/vehicles/                     # Create
+PATCH  /api/ttms/vehicles/{id}/                # Update
+POST   /api/ttms/vehicles/{id}/update_stage/   # Update stage
 ```
 
-### Stages
+### Vehicle Stages
 ```
-GET    /api/stages/                       # List all
-GET    /api/stages/by_vehicle/            # By vehicle
-PATCH  /api/stages/{id}/                  # Update
+GET    /api/ttms/vehicle-stages/                 # List all
+GET    /api/ttms/vehicle-stages/by_vehicle/      # By vehicle
+PATCH  /api/ttms/vehicle-stages/{id}/            # Update
 ```
 
 ### Parking
 ```
-GET    /api/parking/                      # List all
-GET    /api/parking/by_area/              # By area
-GET    /api/parking/available/            # Available only
-POST   /api/parking/{id}/allocate/        # Allocate
+GET    /api/ttms/parking-cells/                      # List all
+GET    /api/ttms/parking-cells/by_area/              # By area
+GET    /api/ttms/parking-cells/available/            # Available only
+POST   /api/ttms/parking-cells/{id}/allocate/        # Allocate
 ```
 
-### Entries
+### Vehicle Entries
 ```
-GET    /api/entries/                      # List all
-GET    /api/entries/today/                # Today's entries
-POST   /api/entries/                      # Create
+GET    /api/ttms/vehicle-entries/                      # List all
+GET    /api/ttms/vehicle-entries/today/                # Today's entries
+POST   /api/ttms/vehicle-entries/                      # Create
 ```
 
 ### Alerts
 ```
-GET    /api/alerts/                       # List all
-GET    /api/alerts/active/                # Unresolved
-POST   /api/alerts/                       # Create
-POST   /api/alerts/{id}/resolve/          # Resolve
-POST   /api/alerts/resolve_all/           # Resolve all
+GET    /api/ttms/alerts/                       # List all
+GET    /api/ttms/alerts/active/                # Unresolved
+POST   /api/ttms/alerts/                       # Create
+POST   /api/ttms/alerts/{id}/resolve/          # Resolve
+POST   /api/ttms/alerts/resolve_all/           # Resolve all
 ```
 
 ### Sparkline
 ```
-GET    /api/sparkline/                    # List all
-GET    /api/sparkline/recent/             # Last 20
-POST   /api/sparkline/                    # Create
+GET    /api/ttms/sparkline/                    # List all
+GET    /api/ttms/sparkline/recent/             # Last 20
+POST   /api/ttms/sparkline/                    # Create
 ```
 
 ## Getting Started
@@ -230,7 +230,7 @@ docker-compose exec web python manage.py createsuperuser
 ```
 
 Then access:
-- API: http://localhost:8000/api/
+- API: http://localhost:8000/api/ttms/
 - Admin: http://localhost:8000/admin/
 
 ### Manual Setup

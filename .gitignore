@@ -1,0 +1,75 @@
+# --- General OS / Editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.log
+*.tmp
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Node / Frontend (Vite/React) ---
+node_modules/
+.dist/
+dist/
+build/
+.cache/
+.next/
+.vite/
+*.local
+
+# --- Environment files ---
+.env
+.env.*
+!.env.example
+
+# --- Django / Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+ENV/
+.envrc
+
+# --- Django / DRF runtime & artifacts ---
+media/
+staticfiles/
+static/
+collectstatic/
+
+# --- Testing / Coverage / Type checking ---
+.coverage*
+.cache/
+.pytest_cache/
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Tooling ---
+.pnpm-store/
+yarn-error.log
+npm-debug.log*
+
+# --- Local database / dumps ---
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# --- Misc ---
+*.tgz
+*.zip
+*.tar

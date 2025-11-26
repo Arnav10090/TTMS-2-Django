@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ttmsService } from '@/services/ttms.service'
 
 type CellState = 'available' | 'occupied' | 'reserved'
 export type OccupancyCell = { id: string; state: CellState; newlyAvailable?: boolean; details?: string }
@@ -31,20 +32,29 @@ export function useSchedulingState() {
   const [vehicleEntries, setVehicleEntries] = useState<VehicleEntry[]>([])
   const [alerts, setAlerts] = useState<AlertItem[]>([])
 
-  // initialize client-only randomized data on mount to avoid server/client mismatches
+  // initialize
   useEffect(() => {
     setOccupancyGrid(makeGrid(25, 'A'))
     setAvailableGrid(makeGrid(20, 'B'))
-    setVehicleEntries(Array.from({ length: 8 }, (_, i) => ({
-      id: (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : `v-${i + 1}`,
-      sn: i + 1,
-      gateEntryTime: new Date(Date.now() - i * 600000).toISOString().slice(0, 16),
-      regNo: `MH12-${1000 + i}`,
-      area: 'AREA-1',
-      position: '',
-      loadingGate: '',
-      selected: false,
-    })))
+    ;(async () => {
+      try {
+        const res = await ttmsService.getVehicleEntries(50, 0)
+        const rows = (res.results || []).map((e, idx) => ({
+          id: String(e.id),
+          sn: idx + 1,
+          gateEntryTime: e.gate_entry_time?.slice(0, 16) || '',
+          regNo: e.vehicle_detail?.reg_no || e.vehicle_reg_no,
+          area: e.area || 'AREA-1',
+          position: e.position || '',
+          loadingGate: e.loading_gate || '',
+          selected: false,
+        }))
+        setVehicleEntries(rows)
+      } catch {
+        // fallback to empty
+        setVehicleEntries([])
+      }
+    })()
 
     const t = setInterval(() => {
       setOccupancyGrid((grid) => grid.map((cell) => {

@@ -99,48 +99,62 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-The API will be available at `http://localhost:8000/api/`
+The API will be available at `http://localhost:8000/api/ttms/`
 
 ## API Endpoints
 
+Base: `http://localhost:8000/api/ttms/`
+
+### Auth (JWT)
+- `POST /api/ttms/auth/login/` – Obtain access/refresh tokens
+- `POST /api/ttms/auth/refresh/` – Refresh access token
+- `POST /api/ttms/auth/verify/` – Verify token
+- `GET /api/ttms/auth/users/` – User list (if permissions allow)
+
 ### KPI Metrics
-- `GET /api/kpi/` - List all KPI records
-- `GET /api/kpi/latest/` - Get the latest KPI metrics (formatted for frontend)
-- `POST /api/kpi/` - Create new KPI record
-- `POST /api/kpi/create_or_update/` - Create or update latest KPI
+- `GET /api/ttms/kpi/` – List all KPI records
+- `GET /api/ttms/kpi/latest/` – Latest KPI metrics
+- `POST /api/ttms/kpi/` – Create KPI record
+- `POST /api/ttms/kpi/create_or_update/` – Create or update latest KPI
 
 ### Vehicles
-- `GET /api/vehicles/` - List vehicles (supports search and filtering)
-- `GET /api/vehicles/{id}/` - Get vehicle details with stages
-- `GET /api/vehicles/active/` - Get vehicles in progress
-- `GET /api/vehicles/completed/` - Get vehicles with completed stages
-- `POST /api/vehicles/` - Create new vehicle
-- `POST /api/vehicles/{id}/update_stage/` - Update specific stage
+- `GET /api/ttms/vehicles/` – List vehicles (search/order supported)
+- `GET /api/ttms/vehicles/{id}/` – Vehicle detail with stages
+- `GET /api/ttms/vehicles/active/` – Vehicles in progress
+- `GET /api/ttms/vehicles/completed/` – Completed vehicles
+- `POST /api/ttms/vehicles/` – Create vehicle
+- `POST /api/ttms/vehicles/{id}/update_stage/` – Update a specific stage
+
+### Vehicle Stages
+- `GET /api/ttms/vehicle-stages/` – List stages
+- `GET /api/ttms/vehicle-stages/by_vehicle/?vehicle_id=1` – Stages for vehicle
 
 ### Parking
-- `GET /api/parking/` - List parking cells
-- `GET /api/parking/by_area/?area=AREA-1` - Get cells by area
-- `GET /api/parking/available/` - Get available parking spots
-- `POST /api/parking/{id}/allocate/` - Allocate spot to vehicle
+- `GET /api/ttms/parking-cells/` – List parking cells
+- `GET /api/ttms/parking-cells/by_area/?area=AREA-1` – Cells by area
+- `GET /api/ttms/parking-cells/available/` – Available spots
+- `POST /api/ttms/parking-cells/{id}/allocate/` – Allocate spot to vehicle
 
 ### Vehicle Entries
-- `GET /api/entries/` - List vehicle entries
-- `GET /api/entries/today/` - Get today's entries
-- `POST /api/entries/` - Create new entry
+- `GET /api/ttms/vehicle-entries/` – List entries
+- `GET /api/ttms/vehicle-entries/today/` – Today’s entries
+- `POST /api/ttms/vehicle-entries/` – Create entry
 
 ### System Alerts
-- `GET /api/alerts/` - List all alerts
-- `GET /api/alerts/active/` - Get unresolved alerts
-- `POST /api/alerts/{id}/resolve/` - Resolve specific alert
-- `POST /api/alerts/resolve_all/` - Resolve all active alerts
-
-### Stages
-- `GET /api/stages/` - List all stages
-- `GET /api/stages/by_vehicle/?vehicle_id=1` - Get stages for specific vehicle
+- `GET /api/ttms/alerts/` – List alerts
+- `GET /api/ttms/alerts/active/` – Unresolved alerts
+- `POST /api/ttms/alerts/{id}/resolve/` – Resolve alert
+- `POST /api/ttms/alerts/resolve_all/` – Resolve all active alerts
 
 ### Sparkline Data
-- `GET /api/sparkline/` - List sparkline data
-- `GET /api/sparkline/recent/` - Get last 20 entries
+- `GET /api/ttms/sparkline/` – List sparkline data
+- `GET /api/ttms/sparkline/recent/` – Last 20 entries
+
+### Loading Gates (Scheduling)
+- `GET /api/ttms/loading-gates/` – List gates
+- `GET /api/ttms/loading-gates/status/` – Summarized status
+- `POST /api/ttms/loading-gates/{id}/assign/` – Assign gate to entry
+- `POST /api/ttms/loading-gates/{id}/release/` – Release gate
 
 ## Database Schema
 

@@ -1,14 +1,17 @@
 from rest_framework import serializers
 from .models import (
     KPIMetrics, Vehicle, VehicleStage, ParkingCell,
-    VehicleEntry, SystemAlert, TurnaroundTimeSparkline
+    VehicleEntry, SystemAlert, TurnaroundTimeSparkline, LoadingGate
 )
 
 
 class VehicleStageSerializer(serializers.ModelSerializer):
     class Meta:
         model = VehicleStage
-        fields = ['id', 'stage', 'state', 'wait_time', 'standard_time']
+        fields = [
+            'id', 'stage', 'state', 'wait_time', 'standard_time',
+            'started_at', 'finished_at', 'time_taken'
+        ]
         read_only_fields = ['id']
 
 
@@ -23,6 +26,13 @@ class VehicleSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', 'timestamp']
+
+
+class VehicleBasicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vehicle
+        fields = ['id', 'reg_no', 'rfid_no', 'tare_weight', 'weight_after_loading', 'progress', 'turnaround_time']
+        read_only_fields = fields
 
 
 class VehicleCreateUpdateSerializer(serializers.ModelSerializer):
@@ -48,11 +58,12 @@ class ParkingCellSerializer(serializers.ModelSerializer):
 
 class VehicleEntrySerializer(serializers.ModelSerializer):
     vehicle_reg_no = serializers.CharField(source='vehicle.reg_no', read_only=True)
+    vehicle_detail = VehicleBasicSerializer(source='vehicle', read_only=True)
     
     class Meta:
         model = VehicleEntry
         fields = [
-            'id', 'vehicle', 'vehicle_reg_no', 'gate_entry_time',
+            'id', 'vehicle', 'vehicle_reg_no', 'vehicle_detail', 'gate_entry_time',
             'area', 'position', 'loading_gate', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
@@ -68,6 +79,20 @@ class SystemAlertSerializer(serializers.ModelSerializer):
             'is_resolved', 'created_at', 'resolved_at'
         ]
         read_only_fields = ['id', 'created_at']
+
+
+class LoadingGateSerializer(serializers.ModelSerializer):
+    current_entry_vehicle_reg_no = serializers.CharField(
+        source='current_entry.vehicle.reg_no', read_only=True
+    )
+
+    class Meta:
+        model = LoadingGate
+        fields = [
+            'id', 'name', 'area', 'status', 'current_entry',
+            'current_entry_vehicle_reg_no', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
 
 
 class TurnaroundTimeSparklineSerializer(serializers.ModelSerializer):

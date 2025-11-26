@@ -1,6 +1,6 @@
 # API Reference Documentation
 
-Base URL: `http://localhost:8000/api`
+Base URL: `http://localhost:8000/api/ttms`
 
 ## Table of Contents
 1. [KPI Metrics](#kpi-metrics)
@@ -18,7 +18,7 @@ Base URL: `http://localhost:8000/api`
 
 ### Get All KPI Records
 ```
-GET /api/kpi/
+GET /api/ttms/kpi/
 ```
 
 **Response (200 OK):**
@@ -62,7 +62,7 @@ GET /api/kpi/
 
 ### Get Latest KPI (Frontend Format)
 ```
-GET /api/kpi/latest/
+GET /api/ttms/kpi/latest/
 ```
 
 **Response (200 OK):**
@@ -117,7 +117,7 @@ GET /api/kpi/latest/
 
 ### Create/Update KPI
 ```
-POST /api/kpi/create_or_update/
+POST /api/ttms/kpi/create_or_update/
 ```
 
 **Request Body:**
@@ -158,7 +158,7 @@ Returns the created/updated KPI record
 
 ### List All Vehicles
 ```
-GET /api/vehicles/?limit=25&offset=0
+GET /api/ttms/vehicles/?limit=25&offset=0
 ```
 
 **Query Parameters:**
@@ -208,7 +208,7 @@ GET /api/vehicles/?limit=25&offset=0
 
 ### Get Single Vehicle
 ```
-GET /api/vehicles/{id}/
+GET /api/ttms/vehicles/{id}/
 ```
 
 **Response (200 OK):**
@@ -238,7 +238,7 @@ GET /api/vehicles/{id}/
 
 ### Get Active Vehicles
 ```
-GET /api/vehicles/active/
+GET /api/ttms/vehicles/active/
 ```
 
 **Response (200 OK):**
@@ -246,7 +246,7 @@ Returns vehicles with active or pending stages
 
 ### Get Completed Vehicles
 ```
-GET /api/vehicles/completed/
+GET /api/ttms/vehicles/completed/
 ```
 
 **Response (200 OK):**
@@ -254,7 +254,7 @@ Returns vehicles with completed stages
 
 ### Create Vehicle
 ```
-POST /api/vehicles/
+POST /api/ttms/vehicles/
 ```
 
 **Request Body:**
@@ -280,7 +280,7 @@ POST /api/vehicles/
 
 ### Update Vehicle Stage
 ```
-POST /api/vehicles/{id}/update_stage/
+POST /api/ttms/vehicles/{id}/update_stage/
 ```
 
 **Request Body:**
@@ -303,7 +303,7 @@ Returns updated stage data
 
 ### List All Stages
 ```
-GET /api/stages/
+GET /api/ttms/vehicle-stages/
 ```
 
 **Query Parameters:**
@@ -311,7 +311,7 @@ GET /api/stages/
 
 ### Get Stages by Vehicle
 ```
-GET /api/stages/by_vehicle/?vehicle_id=1
+GET /api/ttms/vehicle-stages/by_vehicle/?vehicle_id=1
 ```
 
 **Response (200 OK):**
@@ -336,7 +336,7 @@ GET /api/stages/by_vehicle/?vehicle_id=1
 
 ### Update Stage
 ```
-PATCH /api/stages/{id}/
+PATCH /api/ttms/vehicle-stages/{id}/
 ```
 
 **Request Body:**
@@ -353,7 +353,7 @@ PATCH /api/stages/{id}/
 
 ### List All Parking Cells
 ```
-GET /api/parking/
+GET /api/ttms/parking-cells/
 ```
 
 **Query Parameters:**
@@ -362,7 +362,7 @@ GET /api/parking/
 
 ### Get Cells by Area
 ```
-GET /api/parking/by_area/?area=AREA-1
+GET /api/ttms/parking-cells/by_area/?area=AREA-1
 ```
 
 **Response (200 OK):**
@@ -393,7 +393,7 @@ GET /api/parking/by_area/?area=AREA-1
 
 ### Get Available Cells
 ```
-GET /api/parking/available/
+GET /api/ttms/parking-cells/available/
 ```
 
 **Response (200 OK):**
@@ -401,7 +401,7 @@ Returns cells with status "available"
 
 ### Allocate Parking Cell
 ```
-POST /api/parking/{id}/allocate/
+POST /api/ttms/parking-cells/{id}/allocate/
 ```
 
 **Request Body:**
@@ -431,7 +431,7 @@ POST /api/parking/{id}/allocate/
 
 ### List All Entries
 ```
-GET /api/entries/
+GET /api/ttms/vehicle-entries/
 ```
 
 **Query Parameters:**
@@ -440,7 +440,7 @@ GET /api/entries/
 
 ### Get Today's Entries
 ```
-GET /api/entries/today/
+GET /api/ttms/vehicle-entries/today/
 ```
 
 **Response (200 OK):**
@@ -462,7 +462,7 @@ GET /api/entries/today/
 
 ### Create Entry
 ```
-POST /api/entries/
+POST /api/ttms/vehicle-entries/
 ```
 
 **Request Body:**
@@ -482,7 +482,7 @@ POST /api/entries/
 
 ### List All Alerts
 ```
-GET /api/alerts/
+GET /api/ttms/alerts/
 ```
 
 **Query Parameters:**
@@ -491,7 +491,7 @@ GET /api/alerts/
 
 ### Get Active Alerts
 ```
-GET /api/alerts/active/
+GET /api/ttms/alerts/active/
 ```
 
 **Response (200 OK):**
@@ -512,7 +512,7 @@ GET /api/alerts/active/
 
 ### Resolve Alert
 ```
-POST /api/alerts/{id}/resolve/
+POST /api/ttms/alerts/{id}/resolve/
 ```
 
 **Response (200 OK):**
@@ -531,7 +531,7 @@ POST /api/alerts/{id}/resolve/
 
 ### Resolve All Alerts
 ```
-POST /api/alerts/resolve_all/
+POST /api/ttms/alerts/resolve_all/
 ```
 
 **Response (200 OK):**
@@ -543,7 +543,7 @@ POST /api/alerts/resolve_all/
 
 ### Create Alert
 ```
-POST /api/alerts/
+POST /api/ttms/alerts/
 ```
 
 **Request Body:**
@@ -561,12 +561,12 @@ POST /api/alerts/
 
 ### Get All Sparkline Data
 ```
-GET /api/sparkline/
+GET /api/ttms/sparkline/
 ```
 
 ### Get Recent Sparkline Data
 ```
-GET /api/sparkline/recent/
+GET /api/ttms/sparkline/recent/
 ```
 
 **Response (200 OK):**
@@ -642,27 +642,27 @@ POST /api/sparkline/
 
 ### Search vehicles
 ```
-GET /api/vehicles/?search=MH12
+GET /api/ttms/vehicles/?search=MH12
 ```
 
 ### Get active vehicles sorted by turnaround time
 ```
-GET /api/vehicles/active/?ordering=-turnaround_time
+GET /api/ttms/vehicles/active/?ordering=-turnaround_time
 ```
 
 ### Get today's entries for specific area
 ```
-GET /api/entries/today/?area=AREA-1
+GET /api/ttms/vehicle-entries/today/?area=AREA-1
 ```
 
 ### Get unresolved critical alerts
 ```
-GET /api/alerts/?level=critical&search=critical
+GET /api/ttms/alerts/?level=critical&search=critical
 ```
 
 ### Paginate results
 ```
-GET /api/vehicles/?limit=50&offset=100
+GET /api/ttms/vehicles/?limit=50&offset=100
 ```
 
 ---

@@ -99,6 +99,88 @@ export interface SparklinePoint {
 }
 
 export class TTMSService {
+  // Scheduling: Vehicle Entries
+  async getVehicleEntries(limit: number = 50, offset: number = 0) {
+    type VehicleEntryApi = {
+      id: number
+      vehicle: number
+      vehicle_reg_no: string
+      vehicle_detail?: {
+        id: number
+        reg_no: string
+        rfid_no?: string
+        tare_weight?: number
+        weight_after_loading?: number
+        progress?: number
+        turnaround_time?: number
+      }
+      gate_entry_time: string
+      area: string
+      position: string
+      loading_gate: string
+    }
+    type VehicleEntryListResponse = {
+      count: number
+      next: string | null
+      previous: string | null
+      results: VehicleEntryApi[]
+    }
+
+    const res = await ttmsApi.get<VehicleEntryListResponse>(
+      `/ttms/vehicle-entries/?limit=${limit}&offset=${offset}`
+    )
+    return res
+  }
+
+  // Scheduling: Loading Gates
+  async getLoadingGates() {
+    type LoadingGate = {
+      id: number
+      name: string
+      area: string
+      status: 'available' | 'occupied' | 'maintenance'
+      current_entry: number | null
+      current_entry_vehicle_reg_no?: string | null
+    }
+    type List = { count: number; next: string | null; previous: string | null; results: LoadingGate[] }
+    const res = await ttmsApi.get<List>('/ttms/loading-gates/')
+    return res
+  }
+
+  async assignLoadingGate(gateId: number, entryId: number) {
+    return ttmsApi.post(`/ttms/loading-gates/${gateId}/assign/`, { entry_id: entryId })
+  }
+
+  async releaseLoadingGate(gateId: number) {
+    return ttmsApi.post(`/ttms/loading-gates/${gateId}/release/`, {})
+  }
+
+  // Reports: Vehicle Stages by Vehicle
+  async getVehicleStagesByVehicle(vehicleId: number) {
+    type Stage = {
+      id: number
+      stage: StageKey
+      state: 'completed' | 'active' | 'pending'
+      wait_time: number
+      standard_time: number
+      started_at?: string | null
+      finished_at?: string | null
+      time_taken?: number
+    }
+    const res = await ttmsApi.get<Stage[]>(`/ttms/vehicle-stages/by_vehicle/?vehicle_id=${vehicleId}`)
+    return res
+  }
+
+  async findVehicleByRegNo(regNo: string) {
+    type VehiclesListResponse = {
+      count: number
+      next: string | null
+      previous: string | null
+      results: VehicleResponse[]
+    }
+    const res = await ttmsApi.get<VehiclesListResponse>(`/ttms/vehicles/?search=${encodeURIComponent(regNo)}`)
+    return res.results.find(v => v.reg_no === regNo) || res.results[0] || null
+  }
   async getKPIMetrics(): Promise<KPIData> {
     try {
       const response = await ttmsApi.get<{ results: KPIMetricsResponse[] }>('/ttms/kpi/')

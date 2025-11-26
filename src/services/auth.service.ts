@@ -39,8 +39,15 @@ class AuthService {
       })
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.detail || 'Login failed')
+        let message = 'Login failed'
+        try {
+          const error = await response.json()
+          message = (error && (error.detail || error.message)) || message
+        } catch (_) {
+          const text = await response.text().catch(() => '')
+          message = `HTTP ${response.status}` + (text ? `: ${text.slice(0, 200)}` : '')
+        }
+        throw new Error(message)
       }
 
       const data = (await response.json()) as LoginResponse
@@ -89,12 +96,14 @@ class AuthService {
   async logout(): Promise<void> {
     try {
       const refreshToken = this.getRefreshToken()
+      const accessToken = this.getAccessToken()
 
       if (refreshToken) {
         await fetch(`${this.apiBase}/ttms/auth/users/logout/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           },
           body: JSON.stringify({ refresh: refreshToken }),
         })
@@ -155,5 +164,5 @@ class AuthService {
 }
 
 export const authService = new AuthService(
-  import.meta.env.VITE_API_BASE || 'http://localhost:8000/api'
+  (import.meta.env.VITE_API_BASE || 'http://localhost:8000') + '/api'
 )

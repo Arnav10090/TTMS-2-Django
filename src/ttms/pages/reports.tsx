@@ -9,6 +9,7 @@ import TotalTimeStackedBar from '@/components/reports/TotalTimeStackedBar'
 import { ReportStep, ReportStepKey } from '@/types/reports'
 import { useRealTimeData } from '@/hooks/useRealTimeData'
 import { VehicleRow } from '@/types/vehicle'
+import { ttmsService } from '@/services/ttms.service'
 
 const baseSteps: ReportStep[] = [
   { key: 'gateEntry', label: 'Gate Entry', minutes: 15, color: '#1976D2' },
@@ -61,13 +62,38 @@ export default function TTMSReportsPage() {
   }, [])
 
   useEffect(() => {
-    if (!vehicle) {
-      setSteps(baseSteps)
-      return
+    let cancelled = false
+    const load = async () => {
+      if (!vehicle) {
+        setSteps(baseSteps)
+        return
+      }
+      // resolve vehicle id by reg no
+      const v = await ttmsService.findVehicleByRegNo(vehicle)
+      if (!v) {
+        setSteps(baseSteps)
+        return
+      }
+      const stages = await ttmsService.getVehicleStagesByVehicle(v.id)
+      if (cancelled) return
+      const toMin = (ms: number) => Math.max(0, Math.round(ms))
+      const byKey: Record<string, number> = {}
+      stages.forEach(s => {
+        const k = s.stage
+        const val = (s as any).time_taken ?? 0
+        byKey[k] = typeof val === 'number' ? val : 0
+      })
+      const mapped: ReportStep[] = [
+        { key: 'gateEntry', label: 'Gate Entry', minutes: byKey['gateEntry'] ?? 0, color: '#1976D2' },
+        { key: 'tareWeight', label: 'Tare Weight', minutes: byKey['tareWeighing'] ?? 0, color: '#9E9E9E' },
+        { key: 'loading', label: 'Loading', minutes: byKey['loading'] ?? 0, color: '#FF9800' },
+        { key: 'postLoadingWeight', label: 'Weight after Loading', minutes: byKey['postLoadingWeighing'] ?? 0, color: '#FFC107' },
+        { key: 'gateExit', label: 'Gate Exit', minutes: byKey['gateExit'] ?? 0, color: '#4CAF50' },
+      ]
+      setSteps(mapped)
     }
-    const row = vehicleData.find((r) => r.regNo === vehicle)
-    if (row) setSteps(mapVehicleToSteps(row))
-    else setSteps(baseSteps)
+    load()
+    return () => { cancelled = true }
   }, [vehicle, vehicleData])
 
   const totals = useMemo(() => steps.reduce((t, s) => t + s.minutes, 0), [steps])

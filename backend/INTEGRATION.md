@@ -19,10 +19,10 @@ PostgreSQL Database
 Update your frontend environment or API client configuration:
 
 ```javascript
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'http://localhost:8000/api/ttms';
 
 // Or in environment variables (.env)
-VITE_API_URL=http://localhost:8000/api
+VITE_API_URL=http://localhost:8000/api/ttms
 ```
 
 ### Production Environment
@@ -58,7 +58,7 @@ export function useRealTimeData() {
         setVehicleData(vehiclesJson.results || vehiclesJson);
 
         // Fetch parking
-        const parkingResponse = await fetch(`${API_BASE_URL}/parking/by_area/`);
+        const parkingResponse = await fetch(`${API_BASE_URL}/parking-cells/by_area/`);
         const parkingJson = await parkingResponse.json();
         setParkingData(parkingJson);
       } catch (error) {
@@ -96,7 +96,7 @@ export function useRealTimeData() {
 
 **Backend endpoint:**
 ```
-GET /api/kpi/latest/
+GET /api/ttms/kpi/latest/
 ```
 
 ### Vehicle Data
@@ -118,11 +118,11 @@ GET /api/kpi/latest/
 
 **Backend endpoints:**
 ```
-GET /api/vehicles/              # List all vehicles
-GET /api/vehicles/{id}/         # Get single vehicle with stages
-GET /api/vehicles/active/       # Get active vehicles
-GET /api/vehicles/completed/    # Get completed vehicles
-POST /api/vehicles/             # Create new vehicle
+GET /api/ttms/vehicles/              # List all vehicles
+GET /api/ttms/vehicles/{id}/         # Get single vehicle with stages
+GET /api/ttms/vehicles/active/       # Get active vehicles
+GET /api/ttms/vehicles/completed/    # Get completed vehicles
+POST /api/ttms/vehicles/             # Create new vehicle
 ```
 
 ### Parking Data
@@ -137,10 +137,10 @@ POST /api/vehicles/             # Create new vehicle
 
 **Backend endpoints:**
 ```
-GET /api/parking/               # List all parking cells
-GET /api/parking/by_area/?area=AREA-1  # Get by area
-GET /api/parking/available/     # Get available only
-POST /api/parking/{id}/allocate/  # Allocate to vehicle
+GET /api/ttms/parking-cells/               # List all parking cells
+GET /api/ttms/parking-cells/by_area/?area=AREA-1  # Get by area
+GET /api/ttms/parking-cells/available/     # Get available only
+POST /api/ttms/parking-cells/{id}/allocate/  # Allocate to vehicle
 ```
 
 ### Vehicle Entries
@@ -161,9 +161,9 @@ POST /api/parking/{id}/allocate/  # Allocate to vehicle
 
 **Backend endpoints:**
 ```
-GET /api/entries/               # List entries
-GET /api/entries/today/         # Get today's entries
-POST /api/entries/              # Create entry
+GET /api/ttms/vehicle-entries/               # List entries
+GET /api/ttms/vehicle-entries/today/         # Get today's entries
+POST /api/ttms/vehicle-entries/              # Create entry
 ```
 
 ## Request/Response Examples
@@ -171,7 +171,7 @@ POST /api/entries/              # Create entry
 ### GET KPI Data
 
 ```bash
-curl -X GET http://localhost:8000/api/kpi/latest/
+curl -X GET http://localhost:8000/api/ttms/kpi/latest/
 ```
 
 Response:
@@ -208,7 +208,7 @@ Response:
 ### GET Vehicles
 
 ```bash
-curl -X GET http://localhost:8000/api/vehicles/
+curl -X GET http://localhost:8000/api/ttms/vehicles/
 ```
 
 Response:
@@ -245,7 +245,7 @@ Response:
 ### POST Create Vehicle
 
 ```bash
-curl -X POST http://localhost:8000/api/vehicles/ \
+curl -X POST http://localhost:8000/api/ttms/vehicles/ \
   -H "Content-Type: application/json" \
   -d '{
     "reg_no": "MH12-1002",
@@ -310,7 +310,7 @@ try {
 The API supports pagination with the default page size of 100:
 
 ```
-GET /api/vehicles/?page=1&page_size=50
+GET /api/ttms/vehicles/?page=1&page_size=50
 ```
 
 ## Filtering and Search
@@ -318,8 +318,8 @@ GET /api/vehicles/?page=1&page_size=50
 Vehicles support search:
 
 ```
-GET /api/vehicles/?search=MH12-1001
-GET /api/vehicles/?ordering=-turnaround_time
+GET /api/ttms/vehicles/?search=MH12-1001
+GET /api/ttms/vehicles/?ordering=-turnaround_time
 ```
 
 ## Real-Time Data Updates
@@ -349,7 +349,7 @@ Consider upgrading to Django Channels for WebSocket support.
 
 3. Frontend runs at `http://localhost:5173`
 4. Backend runs at `http://localhost:8000`
-5. API available at `http://localhost:8000/api/`
+5. API available at `http://localhost:8000/api/ttms/`
 
 ## Testing API Endpoints
 
@@ -363,13 +363,13 @@ Example REST Client file (`.http`):
 
 ```http
 ### Get KPI Data
-GET http://localhost:8000/api/kpi/latest/
+GET http://localhost:8000/api/ttms/kpi/latest/
 
 ### Get Vehicles
-GET http://localhost:8000/api/vehicles/?limit=10
+GET http://localhost:8000/api/ttms/vehicles/?limit=10
 
 ### Create Vehicle
-POST http://localhost:8000/api/vehicles/
+POST http://localhost:8000/api/ttms/vehicles/
 Content-Type: application/json
 
 {

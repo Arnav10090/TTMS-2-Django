@@ -30,7 +30,8 @@ from ttms.views import (
     ParkingCellViewSet,
     VehicleEntryViewSet,
     SystemAlertViewSet,
-    TurnaroundTimeSparklineViewSet
+    TurnaroundTimeSparklineViewSet,
+    LoadingGateViewSet,
 )
 
 # Create router for TTMS endpoints
@@ -47,6 +48,7 @@ router.register(r'parking-cells', ParkingCellViewSet, basename='ttms-parking-cel
 router.register(r'vehicle-entries', VehicleEntryViewSet, basename='ttms-vehicle-entry')
 router.register(r'alerts', SystemAlertViewSet, basename='ttms-alert')
 router.register(r'sparkline', TurnaroundTimeSparklineViewSet, basename='ttms-sparkline')
+router.register(r'loading-gates', LoadingGateViewSet, basename='ttms-loading-gate')
 
 urlpatterns = [
     # Admin interface
